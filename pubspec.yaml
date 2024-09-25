@@ -36,6 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   http: ^1.2.2
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,8 @@ flutter:
   assets:
     - assets/japfa.png
     - assets/user.jpg
+    - assets/phone.jpg
+    - assets/whatsapp.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

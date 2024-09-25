@@ -33,7 +33,7 @@ var dummyUsers = {
       langKey: 'en',
       imageUrl: 'https://example.com/images/jane.jpg',
       resetDate: '2023-01-02T00:00:00Z',
-      mobileNumber: '0987654321',
+      mobileNumber: '+918767398380',
       imeiNumber1: '987654321012345',
       imeiNumber2: '987654321012346',
       branch1: 'Supa',
