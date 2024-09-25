@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_app/modal/user.dart';
 import 'package:login_app/screen/allusers.dart';
+import 'package:login_app/screen/attendance.dart';
 import 'package:login_app/screen/login.dart';
 import 'package:login_app/widget/menuItem.dart';
 import 'package:login_app/widget/userInfo.dart';
@@ -10,6 +11,43 @@ class Dashboard extends StatelessWidget {
   final User user;
   @override
   Widget build(BuildContext context) {
+    void logout() {
+      showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+                actionsPadding: const EdgeInsets.only(bottom: 10, right: 20),
+                actionsAlignment: MainAxisAlignment.end,
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                title: const Text("Confirm Logout"),
+                content: const Text("Are you sure want to log out?"),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("No",
+                          style: TextStyle(color: Colors.black))),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text("Successfully Logged Out!")));
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (ctx) => const LoginScreen(),
+                        ));
+                      },
+                      child: const Text(
+                        "Yes",
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 241, 34, 20)),
+                      )),
+                ],
+              ));
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -20,15 +58,7 @@ class Dashboard extends StatelessWidget {
         foregroundColor: Colors.white,
         actions: [
           IconButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Successfully Logged Out!")));
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (ctx) => const LoginScreen(),
-                ));
-              },
-              icon: const Icon(Icons.exit_to_app_rounded))
+              onPressed: logout, icon: const Icon(Icons.exit_to_app_rounded))
         ],
       ),
       drawer: Drawer(
@@ -73,19 +103,16 @@ class Dashboard extends StatelessWidget {
                 onTapped: () {
                   Navigator.pop(context);
                   Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (cxt) => Allusers()));
+                      .push(MaterialPageRoute(builder: (cxt) => const Allusers()));
                 }),
+            MenuItem(title: "Attendance", logo: Icons.analytics_outlined, onTapped: (){
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => const AttendanceScreen()));
+            }),
             MenuItem(
               title: "Logout",
               logo: Icons.exit_to_app,
-              onTapped: () {
-                ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Successfully Logged Out!")));
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (ctx) => const LoginScreen(),
-                )); 
-              },
+              onTapped: logout,
             ),
           ],
         ),
@@ -100,20 +127,18 @@ class Dashboard extends StatelessWidget {
                     width: 100,
                     height: 100,
                     decoration: BoxDecoration(
-                      color: Colors.white, 
+                      color: Colors.white,
                       border: Border.all(
-                        color: const Color.fromARGB(
-                            255, 145, 145, 145),
-                        width: 3.0, 
+                        color: const Color.fromARGB(255, 145, 145, 145),
+                        width: 3.0,
                       ),
                       borderRadius: BorderRadius.circular(50.0),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(
-                              0.1), 
-                          spreadRadius: 2, 
-                          blurRadius: 10, 
-                          offset: const Offset(0, 5), 
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 2,
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
                         ),
                       ],
                     ),

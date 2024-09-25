@@ -16,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> {
   var version = '';
+  bool isLoading = false;
 
   void getVersion() async {
     var url = 'http://10.104.2.83:8083/api/api-version/getactive';
@@ -28,17 +29,24 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    getVersion();
     super.initState();
+    getVersion();
   }
 
   @override
+  void dispose() {
+    user.dispose();
+    pwd.dispose();
+    super.dispose();
+  }
+
+  TextEditingController user = TextEditingController();
+  TextEditingController pwd = TextEditingController();
+  @override
   Widget build(BuildContext context) {
-    TextEditingController user = TextEditingController();
-    TextEditingController pwd = TextEditingController();
-    var isLoading = false;
 
     void login() async {
+      
       if (user.text.isEmpty || pwd.text.isEmpty) {
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
@@ -50,8 +58,8 @@ class LoginScreenState extends State<LoginScreen> {
         var url =
             'http://10.104.2.83:8083/api/users/bylogin?login=${user.text}&name=${pwd.text}';
         setState(() {
-          isLoading = true;
-        });
+        isLoading = true;
+      });
         var response = await http.get(Uri.parse(url), headers: <String, String>{
           'Accept': 'application/json',
           'Content-Type': 'application/json; charset=UTF-8',
@@ -189,30 +197,36 @@ class LoginScreenState extends State<LoginScreen> {
                 enableSuggestions: false,
               ),
               const SizedBox(height: 45),
-              TextButton(
-                onPressed: login,
-                style: const ButtonStyle(
-                  padding: WidgetStatePropertyAll(
-                    EdgeInsets.symmetric(vertical: 8, horizontal: 18),
+              if (isLoading)
+                const Column(
+                  children: [
+                    CircularProgressIndicator(color: Color.fromARGB(255, 0, 0, 0),),
+                    SizedBox(height: 10,),
+                    Text("Authenticating...")
+                  ],
+                )
+              else
+                TextButton(
+                  onPressed: login,
+                  style: const ButtonStyle(
+                    padding: WidgetStatePropertyAll(
+                      EdgeInsets.symmetric(vertical: 8, horizontal: 18),
+                    ),
+                    foregroundColor: WidgetStatePropertyAll(
+                      Colors.white,
+                    ),
+                    backgroundColor: WidgetStatePropertyAll(
+                      Color.fromARGB(255, 242, 103, 34),
+                    ),
                   ),
-                  foregroundColor: WidgetStatePropertyAll(
-                    Colors.white,
+                  child: const Text(
+                    "Sign in",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
                   ),
-                  backgroundColor: WidgetStatePropertyAll(
-                    Color.fromARGB(255, 242, 103, 34),
-                  ),
-                ),
-                child: 
-                isLoading?
-                const CircularProgressIndicator()
-                :const Text(
-                  "Sign in",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-              )
+                )
             ],
           ),
         ),
