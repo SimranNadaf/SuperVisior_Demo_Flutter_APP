@@ -21,13 +21,13 @@ class AtdtabbuttonState extends State<Atdtabbutton>{
         },
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+          margin: const EdgeInsets.symmetric(vertical: 40, horizontal: 5),
           decoration: BoxDecoration(
-            color: widget.onActivited?  const Color.fromARGB(255, 63,162,246) : const Color.fromARGB(255, 255, 255, 255),
+            color: widget.onActivited?  const Color.fromARGB(255,17, 109, 110) : const Color.fromARGB(255, 255, 255, 255),
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(width: 1, color: const Color.fromARGB(255, 63,162,246))
+            border: Border.all(width: 1, color: const Color.fromARGB(255,17, 109, 110))
           ),
-          child: Text(widget.title, style: TextStyle(color: widget.onActivited?Colors.white:const Color.fromARGB(255, 63,162,246), fontWeight: FontWeight.w600),),
+          child: Text(widget.title, style: TextStyle(color: widget.onActivited?Colors.white:const Color.fromARGB(255,17, 109, 110), fontWeight: FontWeight.w600),),
         ),
       );    
   }
