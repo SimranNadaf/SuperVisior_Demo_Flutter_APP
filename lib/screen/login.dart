@@ -57,6 +57,7 @@ class LoginScreenState extends State<LoginScreen> {
       try {
         var url =
             'http://10.104.2.83:8083/api/users/bylogin?login=${user.text}&name=${pwd.text}';
+        print('Url: $url');
         setState(() {
         isLoading = true;
       });
@@ -66,7 +67,7 @@ class LoginScreenState extends State<LoginScreen> {
           'Authorization':
               'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjZ2ZhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfTElORV9TVVBFUlZJU09SLFJPTEVfVVNFUiIsImV4cCI6MTczNTcyMTI5OX0.CyauvbUdnDoXAqdY0shlnhZS4hh91ZwfvK0c3ilYQZES5CMj4Pd-6LV0warlbI9mu1P8d0k0EhVhkmQ1frLSGA'
         });
-        print(response.statusCode);
+        print('Response: $response');
         List<dynamic> res = [];
         if (response.statusCode == 200) {
           res = json.decode(response.body);
@@ -149,7 +150,7 @@ class LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Colors.black,    
                 ),
               ),
               const SizedBox(

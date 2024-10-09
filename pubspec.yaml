@@ -67,6 +67,15 @@ flutter:
     - assets/user.jpg
     - assets/phone.jpg
     - assets/whatsapp.jpg
+    - assets/dashboard_icons/day_in.png
+    - assets/dashboard_icons/daily_plan.png
+    - assets/dashboard_icons/day_out.png
+    - assets/dashboard_icons/feed_entry.png
+    - assets/dashboard_icons/feed.png
+    - assets/dashboard_icons/invoice.png
+    - assets/dashboard_icons/monitor.png
+    - assets/dashboard_icons/notes.png
+    - assets/dashboard_icons/book.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
